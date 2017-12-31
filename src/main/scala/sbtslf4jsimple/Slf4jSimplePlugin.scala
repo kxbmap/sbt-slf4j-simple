@@ -24,7 +24,7 @@ object Slf4jSimplePlugin extends AutoPlugin {
   }
 
   override def projectSettings: Seq[Setting[_]] = Seq(
-    slf4jSimpleVersion := DefaultSlf4jSimpleVersion,
+    slf4jSimpleVersion := DefaultSlf4jSimpleVersion
   )
 
   private def scopedSettings(conf: Configuration): Seq[Setting[_]] = Seq(
