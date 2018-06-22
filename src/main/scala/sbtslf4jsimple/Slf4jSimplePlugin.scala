@@ -18,8 +18,8 @@ object Slf4jSimplePlugin extends AutoPlugin {
     type Slf4jSimpleLogLevel = sbtslf4jsimple.Slf4jSimpleLogLevel
     val Slf4jSimpleLogLevel = sbtslf4jsimple.Slf4jSimpleLogLevel
 
-    def slf4jSimpleScopedSettings(conf: Configuration): Seq[Setting[_]] =
-      scopedSettings(conf)
+    def addSlf4jSimpleSettingsTo(conf: Configuration): Seq[Setting[_]] =
+      slf4jSimpleScopedSettings(conf)
 
   }
 
@@ -27,7 +27,7 @@ object Slf4jSimplePlugin extends AutoPlugin {
     slf4jSimpleVersion := DefaultSlf4jSimpleVersion
   )
 
-  private def scopedSettings(conf: Configuration): Seq[Setting[_]] = Seq(
+  def slf4jSimpleScopedSettings(conf: Configuration): Seq[Setting[_]] = Seq(
     libraryDependencies += "org.slf4j" % "slf4j-simple" % slf4jSimpleVersion.value % conf
   ) ++ inConfig(conf)(Seq(
     slf4jSimplePropertiesType := Slf4jSimplePropertiesType.JavaOptions,
