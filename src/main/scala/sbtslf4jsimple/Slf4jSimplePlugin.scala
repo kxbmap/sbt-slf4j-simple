@@ -33,9 +33,10 @@ object Slf4jSimplePlugin extends AutoPlugin {
     slf4jSimplePropertiesType := Slf4jSimplePropertiesType.JavaOptions,
     slf4jSimpleProperties := propertiesSetting.value,
     slf4jSimpleLogLevel := Seq.empty,
+    slf4jSimpleGeneratePropertyFile := generatePropertyFileTask.value,
     resourceGenerators ++= {
       slf4jSimplePropertiesType.value match {
-        case Slf4jSimplePropertiesType.Resource => generateResourceTask.taskValue :: Nil
+        case Slf4jSimplePropertiesType.Resource => slf4jSimpleGeneratePropertyFile.map(Seq(_)).taskValue :: Nil
         case Slf4jSimplePropertiesType.JavaOptions => Nil
       }
     },
@@ -68,13 +69,13 @@ object Slf4jSimplePlugin extends AutoPlugin {
     }
   }
 
-  private def generateResourceTask = Def.task[Seq[File]] {
+  private def generatePropertyFileTask = Def.task[File] {
     val file = resourceManaged.value / "simplelogger.properties"
     val props = slf4jSimpleProperties.value.map {
       case (k, v) => s"$k=$v"
     }
     IO.writeLines(file, props)
-    Seq(file)
+    file
   }
 
   private def javaOptionsTask = Def.task[Seq[String]] {
