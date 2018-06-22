@@ -30,7 +30,7 @@ object Slf4jSimplePlugin extends AutoPlugin {
   private def scopedSettings(conf: Configuration): Seq[Setting[_]] = Seq(
     libraryDependencies += "org.slf4j" % "slf4j-simple" % slf4jSimpleVersion.value % conf
   ) ++ inConfig(conf)(Seq(
-    slf4jSimplePropertiesType := Slf4jSimplePropertiesType.Resource,
+    slf4jSimplePropertiesType := Slf4jSimplePropertiesType.JavaOptions,
     slf4jSimpleProperties := propertiesSetting.value,
     slf4jSimpleLogLevel := Seq.empty,
     resourceGenerators ++= {

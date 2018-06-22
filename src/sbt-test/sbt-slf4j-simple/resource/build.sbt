@@ -5,6 +5,7 @@ enablePlugins(Slf4jSimplePlugin)
 slf4jSimpleScopedSettings(Compile)
 
 inConfig(Compile)(Seq(
+  slf4jSimplePropertiesType := Slf4jSimplePropertiesType.Resource,
   slf4jSimpleLogFile := "System.out",
   slf4jSimpleCacheOutputStream := true,
   slf4jSimpleDefaultLogLevel := Slf4jSimpleLogLevel.Warn,
