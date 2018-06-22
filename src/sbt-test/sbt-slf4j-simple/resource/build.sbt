@@ -2,7 +2,7 @@ scalaVersion in ThisBuild := "2.12.4"
 
 enablePlugins(Slf4jSimplePlugin)
 
-slf4jSimpleScopedSettings(Compile)
+addSlf4jSimpleSettingsTo(Compile)
 
 inConfig(Compile)(Seq(
   slf4jSimplePropertiesType := Slf4jSimplePropertiesType.Resource,
