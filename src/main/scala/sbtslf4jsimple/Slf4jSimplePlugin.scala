@@ -49,7 +49,7 @@ object Slf4jSimplePlugin extends AutoPlugin {
   ))
 
   private def propertiesSetting = Def.setting[Seq[(String, String)]] {
-    (Seq(
+    val opts = Seq(
       "logFile" -> slf4jSimpleLogFile.?.value,
       "cacheOutputStream" -> slf4jSimpleCacheOutputStream.?.value,
       "defaultLogLevel" -> slf4jSimpleDefaultLogLevel.?.value,
@@ -62,9 +62,11 @@ object Slf4jSimplePlugin extends AutoPlugin {
       "warnLevelString" -> slf4jSimpleWarnLevelString.?.value
     ).collect {
       case (k, Some(v)) => (k, v.toString)
-    } ++ slf4jSimpleLogLevel.value.map {
+    }
+    val levelOpts = slf4jSimpleLogLevel.value.map {
       case (k, v) => (s"log.$k", v.toString)
-    }).map {
+    }
+    (opts ++ levelOpts).map {
       case (k, v) => (s"org.slf4j.simpleLogger.$k", v)
     }
   }
